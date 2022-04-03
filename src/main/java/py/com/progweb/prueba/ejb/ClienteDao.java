@@ -6,6 +6,8 @@ package py.com.progweb.prueba.ejb;
 
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.*;
 import py.com.progweb.prueba.model.Cliente;
 
@@ -38,9 +40,9 @@ public class ClienteDao {
             em.merge(cliente);
         }
     }
-    
+   // @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void DeleteCliente(Cliente cliente){
-        em.remove(cliente);
+        em.remove(em.contains(cliente) ? cliente : em.merge(cliente));
     }
     
 }
