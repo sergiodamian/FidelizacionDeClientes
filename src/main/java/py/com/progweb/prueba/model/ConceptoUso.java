@@ -23,9 +23,10 @@ import java.util.List;
 public class ConceptoUso {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "concepto_uso_id")
+    @GeneratedValue(generator = "conceptoUsoSec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "conceptoUsoSec", sequenceName = "concepto_uso_sec", allocationSize = 0) //debe ser como en la BD
     private Integer idConceptoUso;
 
     @Column(name = "descripcion")

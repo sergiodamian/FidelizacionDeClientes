@@ -5,7 +5,6 @@
  */
 package py.com.progweb.prueba.rest;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -33,8 +32,51 @@ public class ConceptoUsoRest {
     @GET
     @Path("/")
     public Response listar() {
-        List<ConceptoUsoDao> result = conceptoUsoDao.getConceptoUsoDaos();
+        List<ConceptoUso> result = conceptoUsoDao.getConceptoUso();
         return Response.ok(result).build();
+    }
+
+    @GET
+    @Path("/{idConceptoUso}")
+    public Response listarPorId(@PathParam("idConceptoUso") Integer idConceptoUso) {
+        ConceptoUso value = this.conceptoUsoDao.getConceptoUso(idConceptoUso);
+        if (value == null) {
+            return Response.noContent().build();
+        }
+        return Response.ok(value).build();
+    }
+
+    @POST
+    @Path("/")
+    public Response crear(ConceptoUso conceptoUso) throws URISyntaxException {
+        Integer id = this.conceptoUsoDao.createConceptoUso(conceptoUso);
+        return Response.created(UriBuilder
+                .fromResource(ConceptoUsoRest.class)
+                .path("/{id}")
+                .build(id)).build();
+    }
+
+    @PUT
+    @Path("/")
+    public Response actualizar(ConceptoUso conceptoUso) {
+        this.conceptoUsoDao.updateConceptoUso(conceptoUso);
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/{idConceptoUso}")
+    public Response eliminar(@PathParam("idConceptoUso") Integer conceptoUsoId) {
+        try {
+            ConceptoUso conceptoUso = this.conceptoUsoDao.getConceptoUso(conceptoUsoId);
+            if (conceptoUso == null) {
+                return Response.status(400).build();
+            }
+            this.conceptoUsoDao.deleteConceptoUso(conceptoUso);
+            return Response.ok().build();
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return Response.status(500).build();
     }
 
 }
