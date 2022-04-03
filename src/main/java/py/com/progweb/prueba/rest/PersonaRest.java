@@ -41,4 +41,6 @@ public class PersonaRest {
         this.personaDao.agregar(p);
         return Response.ok().build();
     }
+    
+   
 }

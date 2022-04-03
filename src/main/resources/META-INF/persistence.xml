@@ -8,6 +8,7 @@
         <jta-data-source>java:jboss/datasources/bdpwb</jta-data-source>
         <class>py.com.progweb.prueba.model.Persona</class>
         <class>py.com.progweb.prueba.model.ConceptoUso</class>
+        <class>py.com.progweb.prueba.model.Cliente</class>
         <properties>
             <property name="hibernate.id.new_generator_mappings" value="true"/>
             <property name="hibernate.show_sql" value="true"/>
