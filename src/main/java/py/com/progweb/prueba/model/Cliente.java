@@ -6,9 +6,13 @@ package py.com.progweb.prueba.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
+import org.hibernate.FetchMode;
+import org.hibernate.annotations.Fetch;
 
 /**
  *
@@ -19,6 +23,8 @@ import javax.persistence.*;
 public class Cliente {
 
     public Cliente() {
+        this.bolsaPuntosList = new ArrayList<BolsaPuntos>();
+        
     }
     @Id
     @GeneratedValue(generator = "clienteSec", strategy = GenerationType.SEQUENCE)
@@ -45,12 +51,14 @@ public class Cliente {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaNacimiento;
     
-    /*@OneToMany(mappedBy = "cliente", cascade = {CascadeType.ALL})
-    @JsonManagedReference(value="bolsa-cliente")
-    private List<BolsaPuntos> bolsaPuntosList=null;*/
-    @OneToMany(mappedBy = "cliente", cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "cliente", cascade = {CascadeType.ALL})
     @JsonManagedReference(value="usodepuntos-cliente")
-    private List<UsoPuntos> usoPuntosList=null;
+    private Set<UsoPuntos> usoPuntosList=null;    
+    
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "cliente", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="bolsa-cliente")
+    private List<BolsaPuntos> bolsaPuntosList;
+
     
 
     public Integer getCliente_id() {

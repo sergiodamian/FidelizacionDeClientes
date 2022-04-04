@@ -25,19 +25,21 @@ public class DetalleUso {
     @GeneratedValue(generator = "delalleSec", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "delalleSec", sequenceName = "detalle_uso_de_puntos", allocationSize = 0)
     @Basic(optional = false)
-    @Column(name="bolsa_id")
+    @Column(name="detalle_uso_id")
     private Integer detalleId;
+    
     @Column(name="puntaje_utilizado")
     private Integer puntajeUtilizado;
-    /*@ManyToOne(optional=false)
-    @JoinColumn(name="bolsaId")
+    
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id_bolsa")
     @JsonBackReference(value="detalle-bolsa")
     private BolsaPuntos bolsaPuntos;
-    */
-    /*@ManyToOne(optional=false)
-    @JoinColumn(name="UsoPuntosId")
+    
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id_uso_de_puntos")
     @JsonBackReference(value="detalle-usodepuntos")
-    private  UsoPuntos usoPuntos;*/
+    private  UsoPuntos usoPuntos;
 
     public Integer getDetalleId() {
         return detalleId;

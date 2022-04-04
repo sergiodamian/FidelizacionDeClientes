@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,18 +48,18 @@ public class UsoPuntos {
     private Date FechaUso;
     
     @ManyToOne(optional=false)
-    @JoinColumn(name="cliente_id")
+    @JoinColumn(name="id_cliente")
     @JsonBackReference(value="usodepuntos-cliente")
     private Cliente cliente;
     
-    /*@ManyToOne(optional=false)
-    @JoinColumn(name="idConceptoUso")
+    @ManyToOne(optional=false)
+    @JoinColumn(name="concepto_uso_id")
     @JsonBackReference(value="usodepuntos-conceptodeuso")
     private ConceptoUso useConcept;
     
-    @OneToMany(mappedBy ="usoPuntos", cascade =  CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy ="usoPuntos", cascade =  CascadeType.ALL)
     @JsonBackReference(value="detalle-usodepuntos")
-    private List<DetalleUso> detalleUso=null;*/
+    private List<DetalleUso> detalleUso=null;
 
     public Integer getUsoPuntosId() {
         return UsoPuntosId;

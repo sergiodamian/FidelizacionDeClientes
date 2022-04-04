@@ -40,21 +40,22 @@ public class BolsaPuntos {
     private Integer puntosUsados;
     @Column(name="saldo")
     private Integer saldo;
-    @Column(name="montoOperacion")
+    @Column(name="monto_operacion")
     private BigInteger montoOperacion;
     
-   /* @ManyToOne(optional=false)
+    @ManyToOne(optional=false)
     @JoinColumn(name="cliente_id")
     @JsonBackReference(value="bolsa-cliente")
     private Cliente cliente;
-    @OneToMany(mappedBy="usoPuntos",cascade =  CascadeType.ALL)
+    
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy="bolsaPuntos",cascade =  CascadeType.ALL)
     @JsonBackReference(value="detalle-bolsa")
     private List<DetalleUso> detalleUsoList=null;
     
     @OneToOne(mappedBy="bolsaPuntos",orphanRemoval=true)
     @JsonBackReference(value="vencimiento-bolsa")
     private VencimientoDePuntos vencimientoDePuntos;
-*/
+
     public Integer getBolsaId() {
         return bolsaId;
     }

@@ -97,7 +97,7 @@ public class VencimientoDePuntos {
 
     
     @OneToOne(optional = false)
-    @JoinColumn(name = "bolsaId")
+    @JoinColumn(name = "bolsa_id")
     @JsonBackReference("vencimiento-bolsa")
     private BolsaPuntos bolsaPuntos;
 
