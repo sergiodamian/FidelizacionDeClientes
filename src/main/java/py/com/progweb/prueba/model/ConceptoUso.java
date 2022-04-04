@@ -5,12 +5,9 @@
  */
 package py.com.progweb.prueba.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.math.BigInteger;
 import lombok.Data;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Entidad para mapear Conceptos de puntos
