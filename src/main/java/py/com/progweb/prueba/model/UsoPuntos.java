@@ -39,8 +39,10 @@ public class UsoPuntos {
     @Basic(optional = false)
     @Column(name="uso_puntos_id")
     private Integer UsoPuntosId;
+    
     @Column(name="puntos_usados")
     private Integer PuntosUsados;
+    
     @Column(name="fecha_uso")
     private Date FechaUso;
     
@@ -48,6 +50,7 @@ public class UsoPuntos {
     @JoinColumn(name="concepto_uso_id")
     @JsonBackReference(value="usodepuntos-conceptodeuso")
     private ConceptoUso conceptoUso;
+    
     @OneToMany(mappedBy ="usoPuntos", cascade =  CascadeType.ALL)
     @JsonBackReference(value="detalle-usodepuntos")
     private List<DetalleUso> detalleUso=null;

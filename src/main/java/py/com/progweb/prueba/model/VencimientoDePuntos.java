@@ -90,11 +90,11 @@ public class VencimientoDePuntos {
         this.duracionDias = duracionDias;
     }
 
-    public BolsaPuntos getBolsaPuntos() {
+    public BolsaDePuntos getBolsaPuntos() {
         return bolsaPuntos;
     }
 
-    public void setBolsaPuntos(BolsaPuntos bolsaPuntos) {
+    public void setBolsaPuntos(BolsaDePuntos bolsaPuntos) {
         this.bolsaPuntos = bolsaPuntos;
     }
 
@@ -112,9 +112,9 @@ public class VencimientoDePuntos {
     @OneToOne(optional = false)
     @JoinColumn(name = "bolsa_puntos_id")
     @JsonBackReference("vencimiento-bolsa")
-    private BolsaPuntos bolsaPuntos;
+    private BolsaDePuntos bolsaPuntos;
 
-    public VencimientoDePuntos(Date fechaInicio, Date fechaFinValidez, BolsaPuntos bolsaPuntos) {
+    public VencimientoDePuntos(Date fechaInicio, Date fechaFinValidez, BolsaDePuntos bolsaPuntos) {
         this.fechaInicio = fechaInicio;
         this.fechaFinValidez = fechaFinValidez;
         this.bolsaPuntos = bolsaPuntos;

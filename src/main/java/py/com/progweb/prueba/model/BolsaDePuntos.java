@@ -19,7 +19,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "bolsa_puntos")
-public class BolsaPuntos {
+public class BolsaDePuntos {
 
     @Id
     @GeneratedValue(generator = "bolsaPuntosSec", strategy = GenerationType.SEQUENCE)
@@ -51,14 +51,14 @@ public class BolsaPuntos {
     @JsonBackReference(value = "bolsa-cliente")
     private Cliente cliente;
 
+    /*
     @OneToMany(mappedBy = "bolsaDePuntos", cascade = {CascadeType.ALL})
     @JsonManagedReference(value = "detalle-bolsa")
     private List<DetalleUso> detallesDeUso = null;
 
-    @OneToOne(mappedBy = "bolsaDePuntos", orphanRemoval = true)
+    @OneToOne(mappedBy = "bolsaPuntos", orphanRemoval = true)
     @JsonManagedReference("vencimiento-bolsa")
-    private VencimientoDePuntos vencimientoDePuntos;
-
+    private VencimientoDePuntos vencimientoDePuntos;*/
     //<editor-fold defaultstate="collapsed" desc="***Get y Set***">
     public Integer getBolsaId() {
         return bolsaId;
@@ -116,32 +116,8 @@ public class BolsaPuntos {
         this.montoOperacion = montoOperacion;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public List<DetalleUso> getDetallesDeUso() {
-        return detallesDeUso;
-    }
-
-    public void setDetallesDeUso(List<DetalleUso> detallesDeUso) {
-        this.detallesDeUso = detallesDeUso;
-    }
-
-    public VencimientoDePuntos getVencimientoDePuntos() {
-        return vencimientoDePuntos;
-    }
-
-    public void setVencimientoDePuntos(VencimientoDePuntos vencimientoDePuntos) {
-        this.vencimientoDePuntos = vencimientoDePuntos;
-    }
-
     //</editor-fold>
-    public BolsaPuntos() {
+    public BolsaDePuntos() {
     }
 
 }

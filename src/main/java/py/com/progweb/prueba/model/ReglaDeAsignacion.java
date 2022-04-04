@@ -33,7 +33,7 @@ public class ReglaDeAsignacion {
     private Integer idAsignacion;
 
     @Column(name = "limite_inferior")
-    private String limiteInferior;
+    private Double limiteInferior;
 
     @Column(name = "limite_superior")
     private Double limiteSuperior;
@@ -50,11 +50,11 @@ public class ReglaDeAsignacion {
         this.idAsignacion = idAsignacion;
     }
 
-    public String getLimiteInferior() {
+    public Double getLimiteInferior() {
         return limiteInferior;
     }
 
-    public void setLimiteInferior(String limiteInferior) {
+    public void setLimiteInferior(Double limiteInferior) {
         this.limiteInferior = limiteInferior;
     }
 
@@ -78,7 +78,7 @@ public class ReglaDeAsignacion {
     public ReglaDeAsignacion() {
     }
 
-    public ReglaDeAsignacion(Integer idAsignacion, String limiteInferior, Double limiteSuperior, Double montoEquivalente) {
+    public ReglaDeAsignacion(Integer idAsignacion, Double limiteInferior, Double limiteSuperior, Double montoEquivalente) {
         this.idAsignacion = idAsignacion;
         this.limiteInferior = limiteInferior;
         this.limiteSuperior = limiteSuperior;
