@@ -48,7 +48,7 @@ public class Cliente {
     /*@OneToMany(mappedBy = "cliente", cascade = {CascadeType.ALL})
     @JsonManagedReference(value="bolsa-cliente")
     private List<BolsaPuntos> bolsaPuntosList=null;*/
-    @OneToMany(mappedBy = "cliente", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "cliente_id", cascade = {CascadeType.ALL})
     @JsonManagedReference(value="usodepuntos-cliente")
     private List<UsoPuntos> usoPuntosList=null;
     
