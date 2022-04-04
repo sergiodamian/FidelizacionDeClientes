@@ -6,7 +6,9 @@ package py.com.progweb.prueba.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -45,6 +47,13 @@ public class BolsaPuntos {
     @JoinColumn(name="cliente_id")
     @JsonBackReference(value="bolsa-cliente")
     private Cliente cliente;
+    @OneToMany(mappedBy="usoPuntos",cascade =  CascadeType.ALL)
+    @JsonBackReference(value="detalle-bolsa")
+    private List<DetalleUso> detalleUsoList=null;
+    
+    @OneToOne(mappedBy="bolsaPuntos",orphanRemoval=true)
+    @JsonBackReference(value="vencimiento-bolsa")
+    private VencimientoDePuntos vencimientoDePuntos;
 
     public Integer getBolsaId() {
         return bolsaId;
@@ -102,5 +111,20 @@ public class BolsaPuntos {
         this.montoOperacion = montoOperacion;
     }
     
-    
+    @PrePersist
+    void datesAndBalance(){
+        Date today = new Date();
+        this.fechaAsignacion=today;
+        Calendar c= Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.HOUR, 48);
+        Date expDate=c.getTime();
+        this.fechaVencimiento=expDate;
+        if(this.puntosUsados==null){
+            this.puntosUsados=0;
+        }
+        
+        this.saldo=this.puntosAsignados-this.puntosUsados;
+        
+    }
 }

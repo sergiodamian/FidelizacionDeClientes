@@ -45,9 +45,15 @@ public class UsoPuntos {
     private Date FechaUso;
     
     @ManyToOne(optional=false)
-    @JoinColumn(name="concepto_uso_id")
+    @JoinColumn(name="cliente_id")
+    @JsonBackReference(value="usodepuntos-cliente")
+    private Cliente cliente;
+    
+    @ManyToOne(optional=false)
+    @JoinColumn(name="idConceptoUso")
     @JsonBackReference(value="usodepuntos-conceptodeuso")
-    private ConceptoUso conceptoUso;
+    private ConceptoUso useConcept;
+    
     @OneToMany(mappedBy ="usoPuntos", cascade =  CascadeType.ALL)
     @JsonBackReference(value="detalle-usodepuntos")
     private List<DetalleUso> detalleUso=null;
