@@ -5,6 +5,7 @@
 package py.com.progweb.prueba.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -41,6 +42,7 @@ public class UsoPuntos {
     private Integer UsoPuntosId;
     @Column(name="puntos_usados")
     private Integer PuntosUsados;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     @Column(name="fecha_uso")
     private Date FechaUso;
     
@@ -49,14 +51,14 @@ public class UsoPuntos {
     @JsonBackReference(value="usodepuntos-cliente")
     private Cliente cliente;
     
-    @ManyToOne(optional=false)
+    /*@ManyToOne(optional=false)
     @JoinColumn(name="idConceptoUso")
     @JsonBackReference(value="usodepuntos-conceptodeuso")
     private ConceptoUso useConcept;
     
     @OneToMany(mappedBy ="usoPuntos", cascade =  CascadeType.ALL)
     @JsonBackReference(value="detalle-usodepuntos")
-    private List<DetalleUso> detalleUso=null;
+    private List<DetalleUso> detalleUso=null;*/
 
     public Integer getUsoPuntosId() {
         return UsoPuntosId;

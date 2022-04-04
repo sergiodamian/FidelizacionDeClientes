@@ -43,7 +43,7 @@ public class BolsaPuntos {
     @Column(name="montoOperacion")
     private BigInteger montoOperacion;
     
-    @ManyToOne(optional=false)
+   /* @ManyToOne(optional=false)
     @JoinColumn(name="cliente_id")
     @JsonBackReference(value="bolsa-cliente")
     private Cliente cliente;
@@ -54,7 +54,7 @@ public class BolsaPuntos {
     @OneToOne(mappedBy="bolsaPuntos",orphanRemoval=true)
     @JsonBackReference(value="vencimiento-bolsa")
     private VencimientoDePuntos vencimientoDePuntos;
-
+*/
     public Integer getBolsaId() {
         return bolsaId;
     }

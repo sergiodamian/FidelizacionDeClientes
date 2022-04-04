@@ -29,15 +29,15 @@ public class DetalleUso {
     private Integer detalleId;
     @Column(name="puntaje_utilizado")
     private Integer puntajeUtilizado;
-    @ManyToOne(optional=false)
+    /*@ManyToOne(optional=false)
     @JoinColumn(name="bolsaId")
     @JsonBackReference(value="detalle-bolsa")
     private BolsaPuntos bolsaPuntos;
-    
-    @ManyToOne(optional=false)
+    */
+    /*@ManyToOne(optional=false)
     @JoinColumn(name="UsoPuntosId")
     @JsonBackReference(value="detalle-usodepuntos")
-    private  UsoPuntos usoPuntos;
+    private  UsoPuntos usoPuntos;*/
 
     public Integer getDetalleId() {
         return detalleId;
