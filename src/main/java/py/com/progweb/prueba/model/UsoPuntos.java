@@ -76,6 +76,11 @@ public class UsoPuntos {
         this.FechaUso = FechaUso;
     }
     
+    @PrePersist
+    void Dates(){
+        this.FechaUso=new Date();
+    }
    
     
 }
+    
