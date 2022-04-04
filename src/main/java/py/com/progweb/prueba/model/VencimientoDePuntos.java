@@ -5,6 +5,7 @@
  */
 package py.com.progweb.prueba.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -87,6 +90,14 @@ public class VencimientoDePuntos {
         this.duracionDias = duracionDias;
     }
 
+    public BolsaPuntos getBolsaPuntos() {
+        return bolsaPuntos;
+    }
+
+    public void setBolsaPuntos(BolsaPuntos bolsaPuntos) {
+        this.bolsaPuntos = bolsaPuntos;
+    }
+
     //</editor-fold>
     public VencimientoDePuntos() {
     }
@@ -98,18 +109,17 @@ public class VencimientoDePuntos {
         this.duracionDias = duracionDias;
     }
 
-    /*
     @OneToOne(optional = false)
     @JoinColumn(name = "bolsa_puntos_id")
     @JsonBackReference("vencimiento-bolsa")
-    private PointsSac pointsSac;
+    private BolsaPuntos bolsaPuntos;
 
-    public PointsSacExpiration(Date initDate, Date expirationDate, PointsSac pointsSac) {
-        this.initDate = initDate;
-        this.expirationDate = expirationDate;
-        this.pointsSac = pointsSac;
+    public VencimientoDePuntos(Date fechaInicio, Date fechaFinValidez, BolsaPuntos bolsaPuntos) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFinValidez = fechaFinValidez;
+        this.bolsaPuntos = bolsaPuntos;
     }
-     */
+
     @PrePersist
     void days() {
         Date current = new Date();

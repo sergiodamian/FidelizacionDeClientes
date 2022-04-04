@@ -38,15 +38,15 @@ public class VencimientoDePuntosDao {
         return (List<VencimientoDePuntos>) q.getResultList();
     }
 
-    /*
+    
     public void updateVencimientoDePuntos(VencimientoDePuntos vencimientoDePuntos) {
         if (entityManager.find(VencimientoDePuntos.class, vencimientoDePuntos.getIdVencimiento()) != null) {
             VencimientoDePuntos vencimientoDePuntos1 = this.getVencimientoDePuntos(vencimientoDePuntos.getIdVencimiento());
-            vencimientoDePuntos.setPointsSac(vencimientoDePuntos1.getVencimientoDePuntos());
+            vencimientoDePuntos.setBolsaPuntos(vencimientoDePuntos1.getBolsaPuntos());
             entityManager.merge(vencimientoDePuntos);
         }
     }
-     */
+     
     public void deleteVencimientoDePuntos(VencimientoDePuntos vencimientoDePuntos) {
         entityManager.remove(entityManager.contains(vencimientoDePuntos) ? vencimientoDePuntos
                 : entityManager.merge(vencimientoDePuntos));

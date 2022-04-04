@@ -14,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import py.com.progweb.prueba.model.BolsaPuntos;
-import py.com.progweb.prueba.model.VencimientoDePuntos;
 
 /**
  * Clase que se encarga de concepto de uso de puntos
@@ -64,7 +63,7 @@ public class BolsaDePuntosDao {
         return (List<BolsaPuntos>) q.getResultList();
     }
 
-    public List<BolsaPuntos> listByClientAndRange(Long clientId, Long infRange, Long supRange) {
+    public List<BolsaPuntos> listByClientAndRange(Integer clientId, Integer infRange, Integer supRange) {
         Query q = this.entityManager
                 .createQuery("SELECT s from BolsaPuntos s WHERE s.client.clientId=:clientId and s.balance BETWEEN :inf and :sup")
                 .setParameter("clientId", clientId)

@@ -34,5 +34,14 @@ public class DetalleUsoDao {
         return (List<DetalleUso>) q.getResultList();
     }
     
+    public void UpdateDetalleUso(DetalleUso detalleUso){
+        if (em.find(DetalleUso.class,detalleUso.getDetalleId()) != null){
+            em.merge(detalleUso);
+        }
+    }
     
+    public void DeleteDetalleUso(DetalleUso detalleUso){
+         em.remove(em.contains(detalleUso) ? detalleUso : em.merge(detalleUso));
+    }
 }
+    

@@ -5,7 +5,9 @@
 package py.com.progweb.prueba.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -42,9 +44,14 @@ public class Cliente {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaNacimiento;
-    /*@OneToMany(mappedBy="cliente", cascade = CascadeType.ALL)
-    JsonManagedReference(value="bolsa-cliente")
-    private List<]*/
+    
+    /*@OneToMany(mappedBy = "cliente", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="bolsa-cliente")
+    private List<BolsaPuntos> bolsaPuntosList=null;*/
+    @OneToMany(mappedBy = "cliente", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value="usodepuntos-cliente")
+    private List<UsoPuntos> usoPuntosList=null;
+    
 
     public Integer getCliente_id() {
         return cliente_id;
