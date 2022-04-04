@@ -5,12 +5,9 @@
  */
 package py.com.progweb.prueba.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.math.BigInteger;
 import lombok.Data;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Entidad para mapear Conceptos de puntos
@@ -23,9 +20,10 @@ import java.util.List;
 public class ConceptoUso {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "concepto_uso_id")
+    @GeneratedValue(generator = "conceptoUsoSec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "conceptoUsoSec", sequenceName = "concepto_uso_sec", allocationSize = 0) //debe ser como en la BD
     private Integer idConceptoUso;
 
     @Column(name = "descripcion")
