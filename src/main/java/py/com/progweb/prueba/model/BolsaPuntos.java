@@ -5,8 +5,10 @@
 package py.com.progweb.prueba.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -16,36 +18,48 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name="bolsa_puntos")
+@Table(name = "bolsa_puntos")
 public class BolsaPuntos {
 
-    public BolsaPuntos() {
-    }
-    
     @Id
     @GeneratedValue(generator = "bolsaPuntosSec", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "bolsaPuntosSec", sequenceName = "bolsa_sec", allocationSize = 0)
     @Basic(optional = false)
-    @Column(name="bolsa_id")
+    @Column(name = "bolsa_id")
     private Integer bolsaId;
-    @Column(name="fecha_asignacion")
+
+    @Column(name = "fecha_asignacion")
     private Date fechaAsignacion;
-    @Column(name="fecha_vencimiento")
+
+    @Column(name = "fecha_vencimiento")
     private Date fechaVencimiento;
-    @Column(name="puntos_asignados")
+
+    @Column(name = "puntos_asignados")
     private Integer puntosAsignados;
-    @Column(name="puntos_usados")
+
+    @Column(name = "puntos_usados")
     private Integer puntosUsados;
-    @Column(name="saldo")
+
+    @Column(name = "saldo")
     private Integer saldo;
-    @Column(name="montoOperacion")
+
+    @Column(name = "monto_operacion")
     private BigInteger montoOperacion;
-    
-    @ManyToOne(optional=false)
-    @JoinColumn(name="cliente_id")
-    @JsonBackReference(value="bolsa-cliente")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "cliente_id")
+    @JsonBackReference(value = "bolsa-cliente")
     private Cliente cliente;
 
+    @OneToMany(mappedBy = "bolsaDePuntos", cascade = {CascadeType.ALL})
+    @JsonManagedReference(value = "detalle-bolsa")
+    private List<DetalleUso> detallesDeUso = null;
+
+    @OneToOne(mappedBy = "bolsaDePuntos", orphanRemoval = true)
+    @JsonManagedReference("vencimiento-bolsa")
+    private VencimientoDePuntos vencimientoDePuntos;
+
+    //<editor-fold defaultstate="collapsed" desc="***Get y Set***">
     public Integer getBolsaId() {
         return bolsaId;
     }
@@ -101,6 +115,33 @@ public class BolsaPuntos {
     public void setMontoOperacion(BigInteger montoOperacion) {
         this.montoOperacion = montoOperacion;
     }
-    
-    
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<DetalleUso> getDetallesDeUso() {
+        return detallesDeUso;
+    }
+
+    public void setDetallesDeUso(List<DetalleUso> detallesDeUso) {
+        this.detallesDeUso = detallesDeUso;
+    }
+
+    public VencimientoDePuntos getVencimientoDePuntos() {
+        return vencimientoDePuntos;
+    }
+
+    public void setVencimientoDePuntos(VencimientoDePuntos vencimientoDePuntos) {
+        this.vencimientoDePuntos = vencimientoDePuntos;
+    }
+
+    //</editor-fold>
+    public BolsaPuntos() {
+    }
+
 }
