@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -15,34 +15,31 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "detalle_uso_de_puntos")
+@Table(name="detalle_uso_de_puntos")
 public class DetalleUso {
 
     public DetalleUso() {
     }
-
+    
     @Id
-    @GeneratedValue(generator = "delalleUsoSec", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "delalleUsoSec", sequenceName = "detalle_uso_de_puntos_sec", allocationSize = 0)
+    @GeneratedValue(generator = "delalleSec", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "delalleSec", sequenceName = "detalle_uso_de_puntos", allocationSize = 0)
     @Basic(optional = false)
-    @Column(name = "detalle-uso-id")
+    @Column(name="detalle_uso_id")
     private Integer detalleId;
-
-    @Column(name = "id-uso-de-puntos")
-    private Integer usoDePuntosId;
-
-    @Column(name = "puntaje-utilizado")
-    private Integer puntosUsados;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "uso_puntos_id")
-    @JsonBackReference(value = "detalle-usodepuntos")
-    private UsoPuntos puntosUsadosObject;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "bolsa_id")
-    @JsonBackReference(value = "detalle-bolsa")
-    private BolsaDePuntos bolsaDePuntos;
+    
+    @Column(name="puntaje_utilizado")
+    private Integer puntajeUtilizado;
+    
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id_bolsa")
+    @JsonBackReference(value="detalle-bolsa")
+    private BolsaPuntos bolsaPuntos;
+    
+    @ManyToOne(optional=false)
+    @JoinColumn(name="id_uso_de_puntos")
+    @JsonBackReference(value="detalle-usodepuntos")
+    private  UsoPuntos usoPuntos;
 
     public Integer getDetalleId() {
         return detalleId;
@@ -52,36 +49,11 @@ public class DetalleUso {
         this.detalleId = detalleId;
     }
 
-    public Integer getUsoDePuntosId() {
-        return usoDePuntosId;
+    public Integer getPuntajeUtilizado() {
+        return puntajeUtilizado;
     }
 
-    public void setUsoDePuntosId(Integer usoDePuntosId) {
-        this.usoDePuntosId = usoDePuntosId;
+    public void setPuntajeUtilizado(Integer puntajeUtilizado) {
+        this.puntajeUtilizado = puntajeUtilizado;
     }
-
-    public Integer getPuntosUsados() {
-        return puntosUsados;
-    }
-
-    public void setPuntosUsados(Integer puntosUsados) {
-        this.puntosUsados = puntosUsados;
-    }
-
-    public UsoPuntos getPuntosUsadosObject() {
-        return puntosUsadosObject;
-    }
-
-    public void setPuntosUsadosObject(UsoPuntos puntosUsadosObject) {
-        this.puntosUsadosObject = puntosUsadosObject;
-    }
-
-    public BolsaDePuntos getBolsaDePuntos() {
-        return bolsaDePuntos;
-    }
-
-    public void setBolsaDePuntos(BolsaDePuntos bolsaDePuntos) {
-        this.bolsaDePuntos = bolsaDePuntos;
-    }
-
 }

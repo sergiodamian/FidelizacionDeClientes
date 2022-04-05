@@ -1,16 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package py.com.progweb.prueba.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,19 +37,23 @@ public class UsoPuntos {
     @Basic(optional = false)
     @Column(name="uso_puntos_id")
     private Integer UsoPuntosId;
-    
     @Column(name="puntos_usados")
     private Integer PuntosUsados;
-    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     @Column(name="fecha_uso")
     private Date FechaUso;
     
     @ManyToOne(optional=false)
+    @JoinColumn(name="id_cliente")
+    @JsonBackReference(value="usodepuntos-cliente")
+    private Cliente cliente;
+    
+    @ManyToOne(optional=false)
     @JoinColumn(name="concepto_uso_id")
     @JsonBackReference(value="usodepuntos-conceptodeuso")
-    private ConceptoUso conceptoUso;
+    private ConceptoUso useConcept;
     
-    @OneToMany(mappedBy ="usoPuntos", cascade =  CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy ="usoPuntos", cascade =  CascadeType.ALL)
     @JsonBackReference(value="detalle-usodepuntos")
     private List<DetalleUso> detalleUso=null;
 
@@ -83,7 +85,5 @@ public class UsoPuntos {
     void Dates(){
         this.FechaUso=new Date();
     }
-   
     
 }
-    

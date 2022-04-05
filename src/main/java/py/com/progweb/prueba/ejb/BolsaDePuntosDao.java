@@ -36,12 +36,12 @@ public class BolsaDePuntosDao {
     private ReglaDeAsignacionDao reglaDeAsignacionDao;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Integer addPSac(BolsaDePuntos pSac) {
+    /* public Integer addPSac(BolsaDePuntos pSac) {
         entityManager.persist(pSac);
         vencimientoDePuntosDao.createVencimientoDePuntos(
                 new VencimientoDePuntos(pSac.getFechaAsignacion(), pSac.getFechaVencimiento(), pSac));
         return pSac.getBolsaId();
-    }
+    }*/
 
     public BolsaDePuntos getBolsaPuntos(Integer id) {
         return entityManager.find(BolsaDePuntos.class, id);
@@ -104,7 +104,7 @@ public class BolsaDePuntosDao {
         } else {
             for (ReglaDeAsignacion reglaDeAsignacion : reglaDeAsignacions) {
                 if (operationAmount > reglaDeAsignacion.getLimiteInferior()) {
-                    operationAmount = operationAmount / (Integer)reglaDeAsignacion.getMontoEquivalente().intValue();
+                    operationAmount = operationAmount / (Integer) reglaDeAsignacion.getMontoEquivalente().intValue();
                     points = operationAmount;
                     break;
                 }

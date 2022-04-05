@@ -34,7 +34,7 @@ public class ConceptoUso {
     @Column(name = "puntos_requeridos")
     private BigInteger puntosRequeridos;
 
-    @OneToMany(mappedBy = "useConcept", cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "useConcept", cascade = {CascadeType.ALL})
     @JsonManagedReference(value = "usodepuntos-conceptodeuso")
     private List<UsoPuntos> UsoPuntosList = null; 
     //<editor-fold defaultstate="collapsed" desc="***Get y Set***">

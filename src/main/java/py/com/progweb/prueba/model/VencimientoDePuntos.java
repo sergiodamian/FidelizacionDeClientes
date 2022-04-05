@@ -13,8 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -90,36 +89,25 @@ public class VencimientoDePuntos {
         this.duracionDias = duracionDias;
     }
 
-    public BolsaDePuntos getBolsaPuntos() {
-        return bolsaPuntos;
-    }
-
-    public void setBolsaPuntos(BolsaDePuntos bolsaPuntos) {
-        this.bolsaPuntos = bolsaPuntos;
-    }
-
     //</editor-fold>
     public VencimientoDePuntos() {
     }
 
-    public VencimientoDePuntos(Integer idVencimiento, Date fechaInicio, Date fechaFinValidez, Long duracionDias) {
-        this.idVencimiento = idVencimiento;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinValidez = fechaFinValidez;
-        this.duracionDias = duracionDias;
-    }
+    
 
+    
     @OneToOne(optional = false)
-    @JoinColumn(name = "bolsa_puntos_id")
+    @JoinColumn(name = "bolsa_id")
     @JsonBackReference("vencimiento-bolsa")
-    private BolsaDePuntos bolsaPuntos;
+    private BolsaPuntos bolsaPuntos;
 
-    public VencimientoDePuntos(Date fechaInicio, Date fechaFinValidez, BolsaDePuntos bolsaPuntos) {
+    public VencimientoDePuntos( Date fechaInicio, Date fechaFinValidez,BolsaPuntos bolsaPuntos) {
+        
         this.fechaInicio = fechaInicio;
         this.fechaFinValidez = fechaFinValidez;
         this.bolsaPuntos = bolsaPuntos;
     }
-
+     
     @PrePersist
     void days() {
         Date current = new Date();
