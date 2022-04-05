@@ -41,6 +41,22 @@ public class DetalleUso {
     @JsonBackReference(value="detalle-usodepuntos")
     private  UsoPuntos usoPuntos;
 
+    public BolsaPuntos getBolsaPuntos() {
+        return bolsaPuntos;
+    }
+
+    public void setBolsaPuntos(BolsaPuntos bolsaPuntos) {
+        this.bolsaPuntos = bolsaPuntos;
+    }
+
+    public UsoPuntos getUsoPuntos() {
+        return usoPuntos;
+    }
+
+    public void setUsoPuntos(UsoPuntos usoPuntos) {
+        this.usoPuntos = usoPuntos;
+    }
+
     public Integer getDetalleId() {
         return detalleId;
     }

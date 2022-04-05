@@ -17,10 +17,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import py.com.progweb.prueba.ejb.BolsaDePuntosDao;
+
+import py.com.progweb.prueba.ejb.BolsaPuntosDao;
 import py.com.progweb.prueba.ejb.ClienteDao;
 import py.com.progweb.prueba.ejb.UsoPuntosDao;
-import py.com.progweb.prueba.model.BolsaDePuntos;
+import py.com.progweb.prueba.model.BolsaPuntos;
+
 import py.com.progweb.prueba.model.Cliente;
 import py.com.progweb.prueba.model.UsoPuntos;
 
@@ -38,7 +40,7 @@ public class ConsultasRest {
     private UsoPuntosDao usoPuntosDao;
 
     @Inject
-    private BolsaDePuntosDao bolsaDePuntosDao;
+    private BolsaPuntosDao bolsaDePuntosDao;
 
     @Inject
     private ClienteDao clientDao;
@@ -71,27 +73,29 @@ public class ConsultasRest {
         if (rangInf > rangSup || rangInf == null || rangSup == null) {
             return Response.status(400).build();
         }
-        List<BolsaDePuntos> bolsaDePuntosList = bolsaDePuntosDao.listByClientAndRange(clientId, rangInf, rangSup);
+        
+        List<BolsaPuntos> bolsaDePuntosList = bolsaDePuntosDao.listaPorClienteYRango(clientId, rangSup, rangSup);
         return Response.ok(bolsaDePuntosList).build();
     }
 
-    /*
+    
     @GET
     @Path("/listarClienteesConPuntosAVencer")
-    public Response listarClienteesPuntosAVencer(@QueryParam("xDias") Long xDias) {
+    public Response listarClienteesPuntosAVencer(@QueryParam("xDias") Integer xDias) {
         if (xDias < 0) {
             return Response.status(400).build();
         }
-        List<BolsaDePuntos> bolsaDePuntosList = bolsaDePuntosDao.listByDaysForExpiration(xDias);
+        
+        List<BolsaPuntos> bolsaDePuntosList = bolsaDePuntosDao.listaPorDiasDeExperiacion(xDias);
         List<Cliente> clients = new ArrayList<Cliente>();
-        for (BolsaDePuntos bolsaDePuntos : bolsaDePuntosList) {
+        for (BolsaPuntos bolsaDePuntos : bolsaDePuntosList) {
             Cliente x = bolsaDePuntos.getCliente();
             if (!clients.contains(x)) {
                 clients.add(x);
             }
         }
         return Response.ok(clients).build();
-    }*/
+    }
 
     @GET
     @Path("/listarClienteesPorNombreApellidoNacimiento")
@@ -115,7 +119,8 @@ public class ConsultasRest {
     @GET
     @Path("calcularPuntosPorMonto")
     public Response puntosXMonto(@QueryParam("monto") Integer amount) {
-        return Response.ok(bolsaDePuntosDao.calculatePoints(amount)).build();
+       
+        return Response.ok(bolsaDePuntosDao.calcularPuntos(amount)).build();
     }
 
 }

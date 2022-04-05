@@ -32,11 +32,19 @@ public class ConceptoUso {
     private String descripcion;
 
     @Column(name = "puntos_requeridos")
-    private BigInteger puntosRequeridos;
+    private Integer puntosRequeridos;
 
     @OneToMany(fetch = FetchType.EAGER ,mappedBy = "useConcept", cascade = {CascadeType.ALL})
     @JsonManagedReference(value = "usodepuntos-conceptodeuso")
     private List<UsoPuntos> UsoPuntosList = null; 
+
+    public List<UsoPuntos> getUsoPuntosList() {
+        return UsoPuntosList;
+    }
+
+    public void setUsoPuntosList(List<UsoPuntos> UsoPuntosList) {
+        this.UsoPuntosList = UsoPuntosList;
+    }
     //<editor-fold defaultstate="collapsed" desc="***Get y Set***">
     public Integer getIdConceptoUso() {
         return idConceptoUso;
@@ -54,11 +62,11 @@ public class ConceptoUso {
         this.descripcion = descripcion;
     }
 
-    public BigInteger getPuntosRequeridos() {
+    public Integer getPuntosRequeridos() {
         return puntosRequeridos;
     }
 
-    public void setPuntosRequeridos(BigInteger puntosRequeridos) {
+    public void setPuntosRequeridos(Integer puntosRequeridos) {
         this.puntosRequeridos = puntosRequeridos;
     }
 
@@ -66,7 +74,7 @@ public class ConceptoUso {
     public ConceptoUso() {
     }
 
-    public ConceptoUso(Integer idConceptoUso, String descripcion, BigInteger puntosRequeridos) {
+    public ConceptoUso(Integer idConceptoUso, String descripcion, Integer puntosRequeridos) {
         this.idConceptoUso = idConceptoUso;
         this.descripcion = descripcion;
         this.puntosRequeridos = puntosRequeridos;

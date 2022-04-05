@@ -33,13 +33,13 @@ public class ReglaDeAsignacion {
     private Integer idAsignacion;
 
     @Column(name = "limite_inferior")
-    private Double limiteInferior;
+    private Integer limiteInferior;
 
     @Column(name = "limite_superior")
-    private Double limiteSuperior;
+    private Integer limiteSuperior;
 
     @Column(name = "monto_equivalente")
-    private Double montoEquivalente;
+    private Integer montoEquivalente;
 
     //<editor-fold defaultstate="collapsed" desc="***Get y Set***">
     public Integer getIdAsignacion() {
@@ -50,27 +50,27 @@ public class ReglaDeAsignacion {
         this.idAsignacion = idAsignacion;
     }
 
-    public Double getLimiteInferior() {
+    public Integer getLimiteInferior() {
         return limiteInferior;
     }
 
-    public void setLimiteInferior(Double limiteInferior) {
+    public void setLimiteInferior(Integer limiteInferior) {
         this.limiteInferior = limiteInferior;
     }
 
-    public Double getLimiteSuperior() {
+    public Integer getLimiteSuperior() {
         return limiteSuperior;
     }
 
-    public void setLimiteSuperior(Double limiteSuperior) {
+    public void setLimiteSuperior(Integer limiteSuperior) {
         this.limiteSuperior = limiteSuperior;
     }
 
-    public Double getMontoEquivalente() {
+    public Integer getMontoEquivalente() {
         return montoEquivalente;
     }
 
-    public void setMontoEquivalente(Double montoEquivalente) {
+    public void setMontoEquivalente(Integer montoEquivalente) {
         this.montoEquivalente = montoEquivalente;
     }
     //</editor-fold>
@@ -78,7 +78,7 @@ public class ReglaDeAsignacion {
     public ReglaDeAsignacion() {
     }
 
-    public ReglaDeAsignacion(Integer idAsignacion, Double limiteInferior, Double limiteSuperior, Double montoEquivalente) {
+    public ReglaDeAsignacion(Integer idAsignacion, Integer limiteInferior, Integer limiteSuperior, Integer montoEquivalente) {
         this.idAsignacion = idAsignacion;
         this.limiteInferior = limiteInferior;
         this.limiteSuperior = limiteSuperior;

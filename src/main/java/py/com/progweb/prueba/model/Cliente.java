@@ -59,6 +59,22 @@ public class Cliente {
     @JsonManagedReference(value="bolsa-cliente")
     private List<BolsaPuntos> bolsaPuntosList;
 
+    public Set<UsoPuntos> getUsoPuntosList() {
+        return usoPuntosList;
+    }
+
+    public void setUsoPuntosList(Set<UsoPuntos> usoPuntosList) {
+        this.usoPuntosList = usoPuntosList;
+    }
+
+    public List<BolsaPuntos> getBolsaPuntosList() {
+        return bolsaPuntosList;
+    }
+
+    public void setBolsaPuntosList(List<BolsaPuntos> bolsaPuntosList) {
+        this.bolsaPuntosList = bolsaPuntosList;
+    }
+
     
 
     public Integer getCliente_id() {

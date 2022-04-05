@@ -41,12 +41,12 @@ public class ReglasDeAsignacionDao {
         
         if (b==1 && b2==2){
             reglaAsignacion2.setLimiteSuperior(reglaAsignacion.getLimiteInferior()-1);
-            reglaAsignacion.setLimiteSuperior(0.0);
+            reglaAsignacion.setLimiteSuperior(0);
             em.merge(reglaAsignacion2);
             em.persist(reglaAsignacion);
             return reglaAsignacion.getIdAsignacion();
         }else if(b==1){
-            reglaAsignacion.setLimiteSuperior(0.0);
+            reglaAsignacion.setLimiteSuperior(0);
             em.persist(reglaAsignacion);
         }else{
             return null;
@@ -90,7 +90,7 @@ public class ReglasDeAsignacionDao {
         }else if(reglaAsignacion2==null){
            em.remove(em.contains(reglaAsignacion1) ? reglaAsignacion1 : em.merge(reglaAsignacion1));
         }else{
-            reglaAsignacion2.setLimiteSuperior(0.0);
+            reglaAsignacion2.setLimiteSuperior(0);
             em.merge(reglaAsignacion2);
             em.remove(em.contains(reglaAsignacion1) ? reglaAsignacion1 : em.merge(reglaAsignacion1));
             

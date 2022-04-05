@@ -56,6 +56,30 @@ public class BolsaPuntos {
     @JsonBackReference(value="vencimiento-bolsa")
     private VencimientoDePuntos vencimientoDePuntos;
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<DetalleUso> getDetalleUsoList() {
+        return detalleUsoList;
+    }
+
+    public void setDetalleUsoList(List<DetalleUso> detalleUsoList) {
+        this.detalleUsoList = detalleUsoList;
+    }
+
+    public VencimientoDePuntos getVencimientoDePuntos() {
+        return vencimientoDePuntos;
+    }
+
+    public void setVencimientoDePuntos(VencimientoDePuntos vencimientoDePuntos) {
+        this.vencimientoDePuntos = vencimientoDePuntos;
+    }
+
     public Integer getBolsaId() {
         return bolsaId;
     }

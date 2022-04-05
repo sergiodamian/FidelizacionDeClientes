@@ -20,9 +20,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
-import py.com.progweb.prueba.ejb.BolsaDePuntosDao;
+import py.com.progweb.prueba.ejb.BolsaPuntosDao;
+
 import py.com.progweb.prueba.ejb.ClienteDao;
-import py.com.progweb.prueba.model.BolsaDePuntos;
+import py.com.progweb.prueba.model.BolsaPuntos;
+
 import py.com.progweb.prueba.model.Cliente;
 
 /**
@@ -36,46 +38,47 @@ import py.com.progweb.prueba.model.Cliente;
 public class BolsaDePuntosRest {
 
     @Inject
-    private BolsaDePuntosDao bolsaDePuntosDao;
+    private BolsaPuntosDao bolsaDePuntosDao;
     @Inject
     private ClienteDao clienteeDao;
 
     @GET
     @Path("/")
     public Response listar() {
-        List<BolsaDePuntos> result = bolsaDePuntosDao.getBolsaPuntoss();
+        List<BolsaPuntos> result = bolsaDePuntosDao.getBolsaPuntos();
         return Response.ok(result).build();
     }
 
     @GET
     @Path("/{bolsaDePuntosId}")
     public Response getBolsaDePuntos(@PathParam("bolsaDePuntosId") Integer bolsaDePuntosId) {
-        BolsaDePuntos cliente = this.bolsaDePuntosDao.getBolsaPuntos(bolsaDePuntosId);
+        BolsaPuntos cliente = this.bolsaDePuntosDao.getBolsaPunto(bolsaDePuntosId);
         if (cliente == null) {
             return Response.noContent().build();
         }
         return Response.ok(cliente).build();
     }
 
-    /*
+    
     @PUT
     @Path("/")
-    public Response crear(@QueryParam("clientee") Integer clienteId, BolsaDePuntos bolsaDePuntos) throws URISyntaxException {
+    public Response crear(@QueryParam("clientee") Integer clienteId, BolsaPuntos bolsaDePuntos) throws URISyntaxException {
         Cliente cliente = this.clienteeDao.getCliente(clienteId);
         if (cliente == null) {
             return Response.status(404).build();
         }
         bolsaDePuntos.setCliente(cliente);
-        Integer id = this.bolsaDePuntosDao.addPSac(bolsaDePuntos);
+        
+        Integer id = this.bolsaDePuntosDao.agregarBolsaPuntos(bolsaDePuntos);
         return Response.created(UriBuilder
                 .fromResource(BolsaDePuntosRest.class)
                 .path("/{id}")
                 .build(id)).build();
-    }*/
+    }
 
     @POST
     @Path("/update")
-    public Response updateBolsaDePuntos(BolsaDePuntos bolsaDePuntos) {
+    public Response updateBolsaDePuntos(BolsaPuntos bolsaDePuntos) {
         this.bolsaDePuntosDao.updateBolsaPuntos(bolsaDePuntos);
         return Response.ok().build();
     }
@@ -83,7 +86,8 @@ public class BolsaDePuntosRest {
     @DELETE
     @Path("/{bolsaDePuntosId}")
     public Response deleteBolsaDePuntos(@PathParam("bolsaDePuntosId") Integer bolsaDePuntosId) {
-        BolsaDePuntos bolsaDePuntos = this.bolsaDePuntosDao.getBolsaPuntos(bolsaDePuntosId);
+        
+        BolsaPuntos bolsaDePuntos = this.bolsaDePuntosDao.getBolsaPunto(bolsaDePuntosId);
         if (bolsaDePuntos == null) {
             return Response.status(404).build();
         }

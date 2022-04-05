@@ -15,14 +15,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import py.com.progweb.prueba.ejb.BolsaDePuntosDao;
+import py.com.progweb.prueba.ejb.BolsaPuntosDao;
 import py.com.progweb.prueba.ejb.ClienteDao;
 import py.com.progweb.prueba.ejb.ConceptoUsoDao;
 import py.com.progweb.prueba.ejb.DetalleUsoDao;
 import py.com.progweb.prueba.ejb.UsoPuntosDao;
-import py.com.progweb.prueba.model.BolsaDePuntos;
+import py.com.progweb.prueba.model.BolsaPuntos;
 import py.com.progweb.prueba.model.Cliente;
 import py.com.progweb.prueba.model.ConceptoUso;
+import py.com.progweb.prueba.model.DetalleUso;
 import py.com.progweb.prueba.model.UsoPuntos;
 
 /**
@@ -39,7 +40,7 @@ public class ServiciosRest {
     private ClienteDao clienteDao;
 
     @Inject
-    private BolsaDePuntosDao bolsaDePuntosDao;
+    private BolsaPuntosDao bolsaDePuntosDao;
 
     @Inject
     private ConceptoUsoDao conceptoUsoDao;
@@ -49,23 +50,24 @@ public class ServiciosRest {
 
     @Inject
     private DetalleUsoDao detalleUsoDao;
-    /*
+    
     @POST
     @Path("/cargar")
     public Response cargar(@QueryParam("clienteId") Integer clienteId, @QueryParam("montoDeLaOperacion") Integer amount) {
-        BolsaDePuntos bolsaDePuntos = new BolsaDePuntos();
+        BolsaPuntos bolsaDePuntos = new BolsaPuntos();
         Cliente cliente = this.clienteDao.getCliente(clienteId);
         if (cliente == null) {
             return Response.status(404).build();
         }
-        if (bolsaDePuntosDao.calculatePoints(amount) <= 0) {
+        if (bolsaDePuntosDao.calcularPuntos(amount) <= 0) {
             return Response.ok("Monto de operacion muy pequeno para generar puntos").build();
         }
         bolsaDePuntos.setCliente(this.clienteDao.getCliente(clienteId));
-        bolsaDePuntos.setPuntosAsignados(bolsaDePuntosDao.calculatePoints(amount));
+        
+        bolsaDePuntos.setPuntosAsignados(bolsaDePuntosDao.calcularPuntos(amount));
         //bolsaDePuntos.setMontoOperacion((BigInteger)(amount.doubleValue()));
-        Integer id = bolsaDePuntosDao.addPSac(bolsaDePuntos);
-        return Response.ok(bolsaDePuntosDao.getBolsaPuntos(id)).build();
+        Integer id = bolsaDePuntosDao.agregarBolsaPuntos(bolsaDePuntos);
+        return Response.ok(bolsaDePuntosDao.getBolsaPunto(id)).build();
     }
 
 
@@ -78,11 +80,13 @@ public class ServiciosRest {
             return Response.status(404).build();
         }
 
-        BigInteger requiredPoints = concept.getPuntosRequeridos();
-        List<BolsaDePuntos> bolsaDePuntosList = bolsaDePuntosDao.listWhereClienteOrderByDate(clienteId);
-        Long pointsCounter = 0L;
-        for (BolsaDePuntos bolsaDePuntos : bolsaDePuntosList) {
-            pointsCounter = +bolsaDePuntos.getBalance();
+        Integer requiredPoints = concept.getPuntosRequeridos();
+        
+        List<BolsaPuntos> bolsaDePuntosList = bolsaDePuntosDao.listaOrdenadoPorFecha(clienteId);
+        Integer pointsCounter = 0;
+        for (BolsaPuntos bolsaDePuntos : bolsaDePuntosList) {
+            
+            pointsCounter = +bolsaDePuntos.getSaldo();
             if (pointsCounter >= requiredPoints) {
                 break;
             }
@@ -93,49 +97,51 @@ public class ServiciosRest {
                     .build();
         }
         UsoPuntos usoPuntos = new UsoPuntos();
-        usoPuntos.setUsedPoints(requiredPoints);
+        
+        usoPuntos.setPuntosUsados(requiredPoints);
         usoPuntos.setCliente(clienteDao.getCliente(clienteId));
-        usoPuntos.setConceptoUso(conceptoUsoDao.getConceptoUso(conceptoId));
-        Long usoPuntosId = usoPuntosDao.createUsoPuntos(usoPuntos);
-        for (BolsaDePuntos bolsaDePuntos : bolsaDePuntosList) {
-            Long avaiblePoints = bolsaDePuntos.getBalance();
+        
+        usoPuntos.setUseConcept(conceptoUsoDao.getConceptoUso(conceptoId));
+            Integer usoPuntosId = usoPuntosDao.createUsoPunto(usoPuntos);
+        for (BolsaPuntos bolsaDePuntos : bolsaDePuntosList) {
+            Integer avaiblePoints = bolsaDePuntos.getSaldo();
             if (avaiblePoints <= 0) {
                 continue;
             }
             if (avaiblePoints < requiredPoints) {
                 requiredPoints = requiredPoints - avaiblePoints;
                 DetalleUso detail = new DetalleUso();
-                detail.setBolsaDePuntos(bolsaDePuntos);
-                detail.setUsedPoints(avaiblePoints);
-                detail.setUsoPuntos(usoPuntosDao.getUsoPuntos(usoPuntosId));
-                detalleUsoDao.createDetalleUso(detail);
-                bolsaDePuntos.setBalance(0L);
-                bolsaDePuntos.setUsedPoints(bolsaDePuntos.getAssignedPoints());
-                bolsaDePuntosDao.updateBolsaDePuntos(bolsaDePuntos);
+                detail.setBolsaPuntos(bolsaDePuntos);
+                detail.setPuntajeUtilizado(avaiblePoints);
+                detail.setUsoPuntos(usoPuntosDao.getUsoPunto(usoPuntosId));
+                detalleUsoDao.CreateDetalleUso(detail);
+                bolsaDePuntos.setSaldo(0);
+                bolsaDePuntos.setPuntosUsados(bolsaDePuntos.getPuntosAsignados());
+                bolsaDePuntosDao.updateBolsaPuntos(bolsaDePuntos);
             } else {
                 DetalleUso detail = new DetalleUso();
-                detail.setBolsaDePuntos(bolsaDePuntos);
-                detail.setUsedPoints(requiredPoints);
-                detail.setUsoPuntos(usoPuntosDao.getUsoPuntos(usoPuntosId));
-                detalleUsoDao.createDetalleUso(detail);
-                bolsaDePuntos.setBalance(avaiblePoints - requiredPoints);
-                bolsaDePuntos.setUsedPoints(bolsaDePuntos.getUsedPoints() + requiredPoints);
-                bolsaDePuntosDao.updateBolsaDePuntos(bolsaDePuntos);
+                detail.setBolsaPuntos(bolsaDePuntos);
+                detail.setPuntajeUtilizado(requiredPoints);
+                detail.setUsoPuntos(usoPuntosDao.getUsoPunto(usoPuntosId));
+                detalleUsoDao.CreateDetalleUso(detail);
+                bolsaDePuntos.setSaldo(avaiblePoints - requiredPoints);
+                bolsaDePuntos.setPuntosUsados(bolsaDePuntos.getPuntosUsados()+ requiredPoints);
+                bolsaDePuntosDao.updateBolsaPuntos(bolsaDePuntos);
                 break;
             }
         }
-        if (mail != null) {
+        /*if (mail != null) {
             try {
                 this.sendMail(cliente.getEmail(), usoPuntos.getConceptoUso().getDescription(), requiredPoints);
             } catch (MessagingException e) {
                 System.out.println("Email invalido " + cliente.getEmail());
                 return Response.status(400).build();
             }
-        }
-        return Response.ok(usoPuntosDao.getUsoPuntos(usoPuntosId)).build();
+        }*/
+        return Response.ok(usoPuntosDao.getUsoPunto(usoPuntosId)).build();
     }
 
-    private void sendMail(String receipient, String concept, Long points) throws MessagingException {
+   /* private void sendMail(String receipient, String concept, Long points) throws MessagingException {
         Properties properties = System.getProperties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");

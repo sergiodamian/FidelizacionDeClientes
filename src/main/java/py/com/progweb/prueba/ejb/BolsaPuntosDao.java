@@ -77,26 +77,26 @@ public class BolsaPuntosDao {
         em.remove(em.contains(bolsaPunto) ? bolsaPunto : em.merge(bolsaPunto));
     }
     
-    public Long calcularPuntos(Double montoOperacion){
+    public Integer calcularPuntos(Integer montoOperacion){
         List<ReglaDeAsignacion> reglasAsignacion=reglaAsignacionDao.getReglaAsignaciones();
-        long puntos=0;
+        Integer puntos=0;
         if(reglasAsignacion.isEmpty()){
         
             if(montoOperacion<=199999){
                 montoOperacion=montoOperacion/50000;
-                puntos=montoOperacion.longValue();
+                puntos=montoOperacion;
             }else if (montoOperacion<=499999){
                 montoOperacion=montoOperacion/30000;
-                puntos=montoOperacion.longValue();
+                puntos=montoOperacion;
             }else{
                 montoOperacion=montoOperacion/20000;
-                puntos=montoOperacion.longValue();
+                puntos=montoOperacion;
             }
         }else{
             for(ReglaDeAsignacion reglaAsignacion: reglasAsignacion){
                if(montoOperacion>reglaAsignacion.getLimiteInferior()){
                    montoOperacion=montoOperacion/reglaAsignacion.getMontoEquivalente();
-                   puntos=montoOperacion.longValue();
+                   puntos=montoOperacion;
                    break;
                }
             }

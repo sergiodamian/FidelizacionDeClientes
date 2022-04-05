@@ -57,6 +57,30 @@ public class UsoPuntos {
     @JsonBackReference(value="detalle-usodepuntos")
     private List<DetalleUso> detalleUso=null;
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public ConceptoUso getUseConcept() {
+        return useConcept;
+    }
+
+    public void setUseConcept(ConceptoUso useConcept) {
+        this.useConcept = useConcept;
+    }
+
+    public List<DetalleUso> getDetalleUso() {
+        return detalleUso;
+    }
+
+    public void setDetalleUso(List<DetalleUso> detalleUso) {
+        this.detalleUso = detalleUso;
+    }
+
     public Integer getUsoPuntosId() {
         return UsoPuntosId;
     }

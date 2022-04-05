@@ -45,6 +45,14 @@ public class VencimientoDePuntos {
     @Column(name = "duracion_dias")
     private Long duracionDias;
 
+    public BolsaPuntos getBolsaPuntos() {
+        return bolsaPuntos;
+    }
+
+    public void setBolsaPuntos(BolsaPuntos bolsaPuntos) {
+        this.bolsaPuntos = bolsaPuntos;
+    }
+
     //<editor-fold defaultstate="collapsed" desc="***Get y Set***">
     /**
      * @return the idVencimiento
