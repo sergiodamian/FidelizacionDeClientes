@@ -24,7 +24,7 @@ public class ReglaDeAsignacion {
     private Integer idAsignacion;
 
     @Column(name = "limite_inferior")
-    private String limiteInferior;
+    private Double limiteInferior;
 
     @Column(name = "limite_superior")
     private Double limiteSuperior;
@@ -41,11 +41,11 @@ public class ReglaDeAsignacion {
         this.idAsignacion = idAsignacion;
     }
 
-    public String getLimiteInferior() {
+    public Double getLimiteInferior() {
         return limiteInferior;
     }
 
-    public void setLimiteInferior(String limiteInferior) {
+    public void setLimiteInferior(Double limiteInferior) {
         this.limiteInferior = limiteInferior;
     }
 
