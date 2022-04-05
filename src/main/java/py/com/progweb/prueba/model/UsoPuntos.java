@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package py.com.progweb.prueba.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -89,7 +85,5 @@ public class UsoPuntos {
     void Dates(){
         this.FechaUso=new Date();
     }
-   
     
 }
-    

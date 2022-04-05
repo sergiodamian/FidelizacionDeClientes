@@ -13,7 +13,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
-import py.com.progweb.prueba.model.DetalleUso;
 import py.com.progweb.prueba.model.UsoPuntos;
 
 /**
